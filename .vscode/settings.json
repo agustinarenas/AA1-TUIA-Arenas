@@ -2,14 +2,24 @@
     "notebook.consolidatedRunButton": false,
     "cSpell.language": "en,es-ES",
     "cSpell.words": [
+        "desbalanceadas",
+        "desbalanceado",
         "explicabilidad",
         "Feauture",
+        "graficara",
         "hiperparametros",
         "hiperparámetros",
         "Hiperparámetros",
+        "Optimizador",
         "Optuna",
         "overfitting",
         "SHAP",
-        "sobreajuste"
+        "sobreajustado",
+        "sobreajuste",
+        "TESTEO"
+    ],
+    "cSpell.ignoreWords": [
+        "desvios",
+        "estandar"
     ]
 }

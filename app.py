@@ -8,12 +8,30 @@ st.title('Predicciones: WeatherAUS Dataset')
 pipeline_pred_r = joblib.load('pipeline_r.joblib')
 pipeline_pred_c = joblib.load('pipeline_c.joblib')
 
-st.sidebar.header('Valores de las features para predecir:')
-'''Ignorar las columnas Unnamed_0 - '''
 # Ingreso de las características
-# Unnamed_0 = st.sidebar.number_input('Unnamed_0', value=0.0)
+st.sidebar.header('Valores de las features para predecir:')
+'''Ignorar las columnas Unnamed_0 - RainTomorrow - RainFallTomorrow''' # Unnamed_0 = st.sidebar.number_input('Unnamed_0', value=0.0)
+
 Date = st.sidebar.text_input('Date')
-Location = st.sidebar.text_input('Location')
+
+# Lista de ubicaciones permitidas
+ciudades_permitidas = ['Adelaide', 'Canberra', 'Cobar', 'Dartmoor', 'Melbourne', 'MelbourneAirport', 'MountGambier', 'Sydney', 'SydneyAirport']
+ciudades_permitidas.append("Otra")  # Añadir opción para ingresar manualmente
+
+# Crear un menú desplegable (selectbox) en la barra lateral
+selected_location = st.sidebar.selectbox('Seleccionar localidad o Ingresar localidad', ciudades_permitidas)
+
+# Permitir al usuario escribir una ubicación si selecciona "Otra"
+if selected_location == "Otra":
+    location_input = st.sidebar.text_input('Ingresar localidad')
+    if location_input:
+        Location = location_input
+    else:
+        st.sidebar.error("Por favor ingrese una localidad valida")
+else:
+    Location = selected_location
+
+
 MinTemp = st.sidebar.number_input('MinTemp', min_value=-15.0, max_value=50.0)
 MaxTemp = st.sidebar.number_input('MaxTemp', min_value=-15, max_value=50.0)
 Rainfall = st.sidebar.number_input('Rainfall', min_value=0.0, max_value=300.0)
@@ -33,7 +51,7 @@ Cloud9am = st.sidebar.number_input('Cloud9am', min_value=0.0, max_value=25.0)
 Cloud3pm = st.sidebar.number_input('Cloud3pm', min_value=0.0, max_value=25.0)
 Temp9am = st.sidebar.number_input('Temp9am', min_value=-15.0, max_value=50.0)
 Temp3pm = st.sidebar.number_input('Temp3pm', min_value=-15.0, max_value=50.0)
-RainToday = st.sidebar.number_input('RainToday', min_value=0.0, max_value=1.0)
+RainToday = st.sidebar.text_input('RainToday (Yes/No)')
 
 # Selección del tipo de predicción
 prediction_type = st.sidebar.radio(
@@ -42,7 +60,7 @@ prediction_type = st.sidebar.radio(
 )
 
 # Crear el array de datos para la predicción
-data_pred = np.array([[Unnamed_0, Date, Location, MinTemp, MaxTemp, Rainfall, Evaporation, Sunshine, WindGustDir, WindGustSpeed, WindDir9am, WindDir3pm, 
+data_pred = np.array([[Date, Location, MinTemp, MaxTemp, Rainfall, Evaporation, Sunshine, WindGustDir, WindGustSpeed, WindDir9am, WindDir3pm, 
                        WindSpeed9am, WindSpeed3pm, Humidity9am, Humidity3pm, Pressure9am, Pressure3pm, Cloud9am, Cloud3pm, Temp9am, Temp3pm, RainToday]])
 
 # Realizar la predicción según el tipo seleccionado
