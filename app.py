@@ -103,4 +103,6 @@ else:
     # Ajustar el valor a una experiencia de usuario general
     st.write('Predicción | Mañana llueve: ', 'Sí' if pred_c.item() else 'No')
 
-# python -m streamlit run app.py
+# Descargar todo en una misma carpeta y abrir en vs code
+# En el explorer buscar el archivo app.py y hacer click derecho y seleccionar Open in integrated Terminal
+# En la terminal pegar python -m streamlit run app.py (Se supone que tienen todas las librerías correspondientes a la aplicación)
